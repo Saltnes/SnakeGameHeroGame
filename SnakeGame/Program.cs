@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,16 +13,39 @@ namespace SnakeGame
         const ConsoleColor HERO_COLOR = ConsoleColor.DarkBlue;
         const ConsoleColor BACKGROUND_COLOR = ConsoleColor.Green;
         public static Coordinate Hero { get; set; } //Will represent our here that's moving around :P/>
+
         static void Main(string[] args)
         {
-           
             //todo
             //lage meny - må gå helt til bruker avslutter
             //
+            int min = 1;
+            int max = 2;
+            int inputValue;
+            string prompt = $"Select an option: 1.Snake 2.Hero-Game ({min}-{max}): ";
+            Console.Write(prompt);
+            while (!int.TryParse(Console.ReadLine(), out inputValue) || inputValue < min || max < inputValue)
+            {
+                Console.WriteLine("Invalid Input. Try Again...");
+                Console.Write(prompt);
+            }
+
+            Console.WriteLine($"You input the value: {inputValue}");
+            if (inputValue == 1)
+            {
+                Console.WriteLine("Choose snake movement speed: Default: 50 (higher = slower)");
+                Snake(Convert.ToInt32(Console.ReadLine()));
+            }
+            else if (inputValue == 2)
+            {
+                HeroGame();
+            }
             
+            Console.Write("Press [enter] to play...");
+            Console.ReadLine();
         }
 
-        static void Snake()//hva skjer om du endrer dette metodenavnet?
+        static void Snake(int delayInMillisecs) //hva skjer om du endrer dette metodenavnet?
         {
             // start game
             Console.WriteLine("Press any key to continue...");
@@ -43,7 +67,7 @@ namespace SnakeGame
             Console.Clear();
 
             // delay to slow down the character movement so you can see it
-            int delayInMillisecs = 50;
+            
 
             // whether to keep trails
             bool trail = true;
@@ -125,10 +149,8 @@ namespace SnakeGame
 
                 // pause to allow eyeballs to keep up
                 System.Threading.Thread.Sleep(delayInMillisecs);
-
             } while (gameLive);
-
-        }// end method snake
+        } // end method snake
 
         //new section for the game Hero *******************************************************
 
@@ -236,7 +258,6 @@ namespace SnakeGame
             };
 
             MoveHero(0, 0);
-
         }
     }
 
@@ -249,5 +270,3 @@ namespace SnakeGame
         public int Y { get; set; } //Top
     }
 }
-
-
