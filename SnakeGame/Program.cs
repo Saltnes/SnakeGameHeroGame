@@ -16,7 +16,6 @@ namespace SnakeGame
 
         static void Main(string[] args)
         {
-            //todo
             //lage meny - må gå helt til bruker avslutter
             //
             int min = 1;
@@ -40,9 +39,6 @@ namespace SnakeGame
             {
                 HeroGame();
             }
-            
-            Console.Write("Press [enter] to play...");
-            Console.ReadLine();
         }
 
         static void Snake(int delayInMillisecs) //hva skjer om du endrer dette metodenavnet?
@@ -67,7 +63,7 @@ namespace SnakeGame
             Console.Clear();
 
             // delay to slow down the character movement so you can see it
-            
+            // Changed to a parameter 
 
             // whether to keep trails
             bool trail = true;
@@ -120,6 +116,10 @@ namespace SnakeGame
                             break;
                         case ConsoleKey.Escape: //END
                             gameLive = false;
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.Clear();
+                            Console.WriteLine("Press [Enter] to exit");
+                            Console.ReadKey();
                             break;
                     }
                 }
@@ -159,7 +159,7 @@ namespace SnakeGame
             InitGame();
 
             ConsoleKeyInfo keyInfo;
-            while ((keyInfo = Console.ReadKey(true)).Key != ConsoleKey.Escape)
+            while ((keyInfo = Console.ReadKey(true)).Key != ConsoleKey.Enter)
             {
                 switch (keyInfo.Key)
                 {
@@ -177,6 +177,11 @@ namespace SnakeGame
 
                     case ConsoleKey.LeftArrow:
                         MoveHero(-1, 0);
+                        break;
+                    case ConsoleKey.Escape:
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Clear();
+                        Console.WriteLine("Press [Enter] to exit");
                         break;
                 }
             }
